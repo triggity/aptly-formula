@@ -6,8 +6,8 @@ include:
 {% set optional_args = [ ('gpg-key', gpgid), ('passphrase', gpgpassphrase) ] %}
 {% for repo, opts in salt['pillar.get']('aptly:repos').items() %}
   {% set components_list = opts['components']|join(',') %}
-  {% set prefix = opts.get('prefix', '') %} 
   {% for distribution in opts['distributions'] %}
+    {% set prefix = "{}/{}".format(opts.get('prefix', ''), distribution) %} 
     {% set repo_list = [] %}
     {% for component in opts['components'] %}
       {% if repo_list.append(repo + '_' + distribution + '_' + component) %} {% endif %}
